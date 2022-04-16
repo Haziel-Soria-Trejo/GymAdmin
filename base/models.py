@@ -34,20 +34,66 @@ class Inventory(models.Model):
     cluster = models.ForeignKey(Cluster, on_delete=models.CASCADE)
     date_register = models.DateTimeField(auto_now_add=True)
     register_by = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    price = models.FloatField(default=0)
 
     def __str__(self):
         return self.name
 
 
+class InventoryPayments(models.Model):
+    """Su propósito es registrar cada cobro de un item."""
+    item = models.ForeignKey(Inventory, on_delete=models.SET_NULL, null=True)
+    quantity = models.FloatField()
+    date = models.DateTimeField(auto_now_add=True)
+    collected_by = models.ForeignKey(
+        Staff, on_delete=models.SET_NULL, null=True)
+    total = models.FloatField()
+
+    def __str__(self) -> str:
+        return self.item.name
+
+
 class Client(models.Model):
     """Modela los clientes."""
+    # Los tipos de membresía.
+    client_type = ('month', 'week', 'visit')
+    client_type_readable = tuple(zip(client_type, client_type))
+
+    inscription = models.DateTimeField(auto_now_add=True)
+    membership = models.CharField(
+        max_length=50, choices=client_type_readable, default=client_type[0])
     name = models.CharField(max_length=100)
     register_by = models.ForeignKey(
         Staff, on_delete=models.SET_NULL, null=True)
     inscription = models.DateTimeField(auto_now_add=True)
     fee = models.FloatField()
+    paid_unitl = models.DateTimeField(auto_now=True)
+    pay_in = models.DateTimeField(auto_now=True)
     advice = models.TextField(default='')
     is_active = models.BooleanField(default=True)
+    charges = models.FloatField(default=0)
+
+    def __str__(self):
+        return self.name
+
+
+class ClientPayments(models.Model):
+    """Su propósito es registrar cada cobro de una cuota."""
+    client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
+    date = models.DateTimeField(auto_now_add=True)
+    collected_by = models.ForeignKey(
+        Staff, on_delete=models.SET_NULL, null=True)
+    membership_time = models.IntegerField()
+    total = models.FloatField()
+
+    def __str__(self):
+        return self.client.name
+
+
+class Expenses(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(default='')
+    total = models.FloatField()
 
     def __str__(self):
         return self.name
@@ -62,8 +108,9 @@ class Task(models.Model):
     assigned_to = models.ForeignKey(
         Staff, on_delete=models.CASCADE, null=True, related_name='assigned_to')
     duration = models.TimeField()
-    importance_level = ((1,1),(2,2),(3,3))
-    importance = models.SmallIntegerField(choices=importance_level,default=2)
+    importance_level = ((1, 1), (2, 2), (3, 3))
+    importance = models.SmallIntegerField(choices=importance_level, default=2)
+    is_complete = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
