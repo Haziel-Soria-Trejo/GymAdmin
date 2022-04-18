@@ -1,0 +1,81 @@
+/*Reset*/
+body{
+    background-color: #FFE6E6;
+}
+/*Logo adaption*/
+.logo-container{
+    margin-left:auto;
+    margin-right:auto;
+    background-color:#F23E3E;
+    width:fit-content;
+    display:flex;
+    justify-content:center;
+}
+/*Login form*/
+h1{
+    text-align: center;
+    margin:50px;
+    font-size: 45px;
+}
+#login-form{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FF2626;
+    border-radius: 30px;
+
+}
+#login-form >*{
+    margin:10px;
+
+}
+#login-door{
+   display:flex ;
+    justify-content:center;
+}
+#login-door img{
+    width:120px;
+    margin-top:40px;
+    margin-bottom: 40px;
+}
+input{
+    font-size:1.5rem;
+}
+.login-field{
+    display: flex;
+    justify-content: space-around;
+    padding:20px;
+}
+.login-field input{
+    width: 80%;
+}
+.login-field img{
+    width:40px;
+}
+a{
+    display:block;
+    text-decoration:none;
+    text-align:center;
+    color:#11468F
+}
+.submits{
+    display:flex;
+    justify-content: space-around;
+    padding: 30px;
+    padding-bottom: 25px;
+}
+.submits input{
+    width: 150px;
+    height: 50px;
+    border-radius: 32px;
+    border-style: none;
+    font-size: 1rem;
+}
+.submits input:first-child{
+    background-color: #FFE6E6;
+    color:#11468F;
+}
+.submits input:nth-child(2){
+    background-color:#11468F ;
+    color:#FFE6E6;
+}

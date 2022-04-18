@@ -1,0 +1,36 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'styles/login.css' %}" />
+
+<header class="logo-container">{% include 'logo.html' %}</header>
+
+<h1>Inicio de sesión.</h1>
+{% if messages %}
+    <ul class="messages">
+        {% for ms in messages %}
+        <li>{{ms}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+<form method="POST" id="login-form">
+  {% csrf_token %}
+  <span id="login-door">
+    <img src="{% static 'icons/door-open-fill.svg' %}" alt="door" />
+  </span>
+
+  <div class="login-field">
+    <span><img src="{% static 'icons/person.svg' %}" /></span>
+    <input type="text" placeholder="Nombre de usuario." name="username"/>
+  </div>
+  <div class="login-field">
+    <span><img src="{% static 'icons/lock.svg' %}" /></span>
+    <input type="password" placeholder="Contraseña." name="password"/>
+  </div>
+  <a href="">¿Olvidaste tu Contraseña?</a>
+  <br />
+  <section class="submits">
+    <input type="submit" name="create-btn" value="Crear usuario" />
+    <input type="submit" name="login_btn" value="Iniciar" />
+  </section>
+</form>
+
+{% endblock content %}

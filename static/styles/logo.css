@@ -1,0 +1,10 @@
+.logo{
+    margin-left:50%;
+    margin-right:50%;
+    font-size:30px;
+    text-align:center;
+    user-select: none;
+  }
+  #gym-span{
+    color:white;
+  }

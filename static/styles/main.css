@@ -1,0 +1,106 @@
+/*body*/
+@font-face {
+  font-family: "inter";
+  src: url("../fonts/Inter-Regular.otf");
+}
+body {
+  box-sizing: border-box;
+  background-color: #1b1717;
+  font-family: 'inter';
+}
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+}
+
+
+/*menu*/
+.menu {
+  position: sticky;
+  top: 0;
+  font-size: 20px;
+  background-color: #bd1616;
+  height: 100px;
+  display: grid;
+  grid-template-columns: 15vw 75vw 10vw;
+  justify-items: center;
+  align-items: center;
+}
+.menu img {
+  width: 8vw;
+}
+.menu-bar {
+  background-color: #eeebdd;
+  height: 75%;
+  width: 70vw;
+  border-radius: 44px;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+}
+/*quicks*/
+.quicks {
+  margin: 20vh;
+  height: 50vh;
+  background-color: #11468f;
+  border-radius: 45px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+.quick {
+  height: 70%;
+  width: 25%;
+  background-color: #4ce45b;
+  border-radius: 15px;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.quick p {
+  text-align: center;
+}
+/*tasks*/
+.task-container {
+  background-color: #fff;
+  margin:10%
+}
+.task-header {
+  background-color: #ff2626;
+  height: 100px;
+  display:flex;
+  justify-content:space-evenly;
+  align-items:center;
+}
+#task-plus{
+  background-color:inherit;
+  border-color:inherit;
+  width:10vw;
+  height:90%;
+  font-size:90px;
+  
+}
+.task {
+  margin: 50px;
+  width: 80%;
+  height: 50px;
+  border-radius: 50px;
+}
+.task-list{
+  padding:50px;
+}
+.importance-1 {
+  background-color: #27c93f;
+}
+.importance-2 {
+  background-color: #ffbd2e;
+}
+.importance-3 {
+  background-color: #ff5f56;
+}
