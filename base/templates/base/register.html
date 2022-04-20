@@ -1,0 +1,79 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+<!--Es una modificación de login.html-->
+
+<link rel="stylesheet" href="{% static 'styles/login.css' %}" />
+
+<header class="logo-container">{% include 'logo.html' %}</header>
+
+<h1>Resgistro de Empleados.</h1>
+
+<p>
+  Su solicitud de ingreso deberá ser procesada por administracion antes de crear
+  su usuario.
+</p>
+
+{% if messages %}
+<ul class="messages">
+  {% for ms in messages %}
+  <li>{{ms}}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<form method="POST" id="login-form">
+  {% csrf_token %}
+  <span id="login-door">
+    <img src="{% static 'icons/door-open-fill.svg' %}" alt="door" />
+  </span>
+
+  <div class="login-field">
+    <span><img src="{% static 'icons/person.svg' %}" /></span>
+    <input type="text" placeholder="Nombre de usuario." name="username" />
+  </div>
+
+  <div class="login-field">
+    <span><img src="{% static 'icons/lock.svg' %}" /></span>
+    <input type="password" placeholder="Contraseña." name="password" />
+  </div>
+
+  <div class="login-field">
+    <span><img src="{% static 'icons/lock.svg' %}" /></span>
+    <input
+      type="password"
+      placeholder="Repita su contraseña."
+      name="password-repeat"
+    />
+  </div>
+
+  <div class="login-field">
+    <span><img src="{% static 'icons/reception-4.svg' %}" /></span>
+    <label for="ranks">Rango al que postula</label>
+    <select name="ranks" id="ranks-select">
+      <option value="segundo al mando">segundo al mando</option>
+      <option value="empleado nivel 1">empleado nivel 1</option>
+      <option value="empleado nivel 2">empleado nivel 2</option>
+    </select>
+  </div>
+
+  <br />
+  <section class="submits">
+    <input type="submit" name="create-btn" value="Crear usuario" />
+    <script>
+      const $ = document;
+      const $form = $.getElementById("login-form");
+      $form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (
+          $.getElementsByName("password").value !==
+          $.getElementsByName("password-repeat").value
+        ) {
+          alert("La contraseña no coincide");
+        } else {
+          $form.submit();
+        }
+      });
+    </script>
+  </section>
+</form>
+
+{% endblock content %}

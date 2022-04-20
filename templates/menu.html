@@ -3,13 +3,22 @@
   {% include 'logo.html' %}
 
   <ul class="menu-bar">
-    <li>home</li>
-    <li>clientes</li>
-    <li>Estadísticas</li>
-    <li>Inventario</li>
-    <li>Personal</li>
-    <li>Ajustes</li>
+    <li><a href="">Home</a></li>
+    <li>
+     <a href="#">Clientes</a>
+    </li>
+    <li>
+    <a href="#">Estadística</a>
+    </li>
+    <li><a href="#">Inventario</a></li>
+    {% if request.user.rank == 'CEO' or request.user.rank == 'segundo al mando' %}
+    <li>
+      <a href="#">Personal</a>
+    </li>
+    {% endif %}
+    <li><a href="#">Ajustes</a></li>
   </ul>
-
-  <img src="{% static 'icons/person.svg' %}" alt="user icon" />
+  <a href="{% url 'logout' %}" id="logout_a">Salir</a>
+   <a href="#"><img src="{% static 'icons/person.svg' %}" alt="user" /> </a> 
+  
 </div>

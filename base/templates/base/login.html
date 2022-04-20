@@ -28,8 +28,18 @@
   <a href="">¿Olvidaste tu Contraseña?</a>
   <br />
   <section class="submits">
+    <input type="submit" name="login-btn" value="Iniciar" />
     <input type="submit" name="create-btn" value="Crear usuario" />
-    <input type="submit" name="login_btn" value="Iniciar" />
+    
+    <script>
+      const $ = document;
+      $.addEventListener('click',e=>{
+        if(e.target.name === 'create-btn'){
+          e.preventDefault()
+          location.assign(`${location.origin}/register`)
+        }
+      })
+    </script>
   </section>
 </form>
 

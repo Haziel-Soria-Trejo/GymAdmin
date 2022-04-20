@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{% include 'menu.html' %}
+<h1 class="welcome-name">
+    ¡Qué alegría tenerte de vuelta <i>{{request.user.username}}!</i>
+</h1>
+
+<main>
+    <article class="profile-content">
+        <h2>Lista de empleados</h2>
+        <section class="user-card">
+            {% for user in staff %}
+                <p>{{user.username}}</p>
+                <small>{{user.rank}}</small>
+            {% endfor %}
+        </section>
+    </article>
+    <article class="profile-content">
+        <h2>Tareas asignadas</h2>
+    </article>
+    <article class="profile-content">
+        <h2></h2>
+    </article>
+    <article class="profile-content">
+        <h2>Actividad reciente</h2>
+    </article>
+    <footer class="profile-content dispatches">
+        <h2>Comunicados</h2>
+    </footer>
+</main>
+
+{% endblock content %}
