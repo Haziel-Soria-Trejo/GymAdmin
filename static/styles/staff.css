@@ -1,0 +1,49 @@
+main{
+    display: grid;
+    margin: 50px 20px 0 ;
+    grid-template-columns: 25vw 25vw auto;
+    grid-template-rows: 50vh auto;
+    grid-column-gap:10px;
+    grid-row-gap:20px;
+    text-align: center;
+}
+.profile-content{
+    background-color: #EEEBDD;
+    overflow-y: scroll;
+}
+footer{
+    grid-column-start:span 3;
+    padding: 50px;
+}
+.card{
+    margin:10px;
+    background-color: #1B1717;
+    color: #FFF;
+}
+.card:nth-child(even){
+    background-color: #FFF;
+    color:#1B1717;
+}
+.card:hover{
+    padding:10px;
+     font-size:1.3rem;
+ }
+
+.disp{
+    font-size: 2rem;
+}
+.disp:hover{
+    font-size: 2.6rem;
+}
+.disp img{
+    width: 40px;
+}
+.like{
+    background-color: #27C93F;
+}
+.dislike{
+    background-color: #FF5F56;
+}
+.like , .dislike{
+    border-style: none;
+}

@@ -59,19 +59,9 @@
   <section class="submits">
     <input type="submit" name="create-btn" value="Crear usuario" />
     <script>
-      const $ = document;
-      const $form = $.getElementById("login-form");
-      $form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        if (
-          $.getElementsByName("password").value !==
-          $.getElementsByName("password-repeat").value
-        ) {
-          alert("La contraseña no coincide");
-        } else {
-          $form.submit();
-        }
-      });
+      $.getElementById('login-form').onsubmit = e=>{
+        alert('Su solicitud se está procesando.')
+      }
     </script>
   </section>
 </form>

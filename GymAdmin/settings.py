@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 
     #Nuestra aplicación.
     'base',
-    'stats'
+    'stats',
+    'API'
 ]
 
 MIDDLEWARE = [
@@ -115,7 +116,7 @@ TIME_ZONE = 'America/Mexico_City'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

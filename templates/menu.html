@@ -3,7 +3,7 @@
   {% include 'logo.html' %}
 
   <ul class="menu-bar">
-    <li><a href="">Home</a></li>
+    <li><a href="{% url 'home' %}">Home</a></li>
     <li>
      <a href="#">Clientes</a>
     </li>
@@ -13,7 +13,7 @@
     <li><a href="#">Inventario</a></li>
     {% if request.user.rank == 'CEO' or request.user.rank == 'segundo al mando' %}
     <li>
-      <a href="#">Personal</a>
+      <a href="{% url 'staff'%}">Personal</a>
     </li>
     {% endif %}
     <li><a href="#">Ajustes</a></li>

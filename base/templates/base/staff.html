@@ -1,0 +1,69 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'styles/staff.css' %}">
+{% include 'menu.html' %}
+<h1 class="welcome-name">
+    ¡Qué alegría tenerte de vuelta <i>{{request.user.username}}!</i>
+</h1>
+
+<main>
+    <article class="profile-content">
+        <h2>Lista de empleados</h2>
+
+        {% for user in staff %}
+        <section class="card user-card">            
+                <p>{{user.username}}</p>
+                <small>{{user.rank}}</small>            
+        </section>
+        {% endfor %}
+    </article>
+    <article class="profile-content">
+        <h2>Tareas asignadas</h2>
+
+        {% for task in tasks %}
+        <section class="card task-card">            
+                <p>{{task.name}}</p>
+                <small>Para: {{task.assigned_to}}</small>            
+        </section>
+        {% endfor %}
+    </article>
+    <article class="profile-content">
+        <h2>Actividad reciente</h2>
+        {% for act in activity %}
+        <section class="card act-card">            
+                <p>{{act.name}}</p>
+                <p>Hecho por {{act.done_by}}</p>
+                <small class="date">{{act.date}}</small>      
+        </section>
+        {% endfor %}
+    </article>
+    <footer class="profile-content dispatches">
+        <h2>Comunicados</h2>
+        {% for disp in dispatches %}
+        {% if disp.staff_to == request.user.username or disp.staff_to == request.user.rank %}
+
+        <section class="card disp">
+                <div>
+                  <p>{{disp.text}}</p>
+                <small>desde {{disp.staff_from}} para {{disp.staff_to}}</small> 
+                <br> 
+                <small>Fecha:</small><small class="date">{{disp.date}}</small>     
+                </div>
+                <div>
+                    <button class="like">
+                        <img src="{% static 'icons/hand-thumbs-up.svg' %}" alt="">
+                    </button>
+                    <button class="dislike">
+                        <img src="{% static 'icons/hand-thumbs-down.svg' %}" alt="">
+                    </button>
+                </div>   
+        </section>
+
+        {% endif %}  
+        {% endfor %}
+    </footer>
+    
+</main>
+<script src="{% static 'js/likes.js' %}"></script>
+{% endblock content %}

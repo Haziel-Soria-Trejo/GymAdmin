@@ -7,6 +7,7 @@ body {
   box-sizing: border-box;
   background-color: #1b1717;
   font-family: 'inter';
+  overflow-x: hidden;
 }
 *,
 *::after,
