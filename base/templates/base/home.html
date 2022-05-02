@@ -3,8 +3,10 @@
 
 {% include 'menu.html' %}
 <h1 class="welcome-name">¡Qué alegría tenerte de vuelta <i>{{request.user.username}}!</i></h1>
+
 {% include 'base/quicks.html' %}
 
 {% include 'base/tasks.html' %}
 
+{% include 'modal.html' %}
 {% endblock content %}

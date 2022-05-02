@@ -29,6 +29,20 @@ footer{
      font-size:1.3rem;
  }
 
+ .add_title{
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:35px;
+    height:fit-content
+}
+.add_title button{
+    width:55px;
+    height:55px;
+    background-color:#bd1616;
+    font-size:45px;
+    border-style:none;
+}
 .disp{
     font-size: 2rem;
 }

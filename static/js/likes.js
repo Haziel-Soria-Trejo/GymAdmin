@@ -1,4 +1,4 @@
-const $ = document;
+$ = document
 const likes = Array.from($.getElementsByClassName("like"));
 const dislikes = Array.from($.getElementsByClassName("dislike"));
 const disps = Array.from($.getElementsByClassName("disp"));
@@ -24,12 +24,13 @@ function deletion(cls) {
   cls.forEach((el, idx) => {
     el.addEventListener("click", (ev) => {
       if (el.className === "like" || 'dislike') {
+        const id = el.parentElement.id.split('_')[1]
         fetch(`${location.origin}/api/v1`, {
           method: "POST",
           headers: {
             "X-CSRFToken": getCookie("csrftoken"),
           },
-          body:JSON.stringify({btn:el.className})
+          body:JSON.stringify({btn:el.className,id:id})
         })
           .then((res) => disps[idx].remove())
           .catch((err) => alert(err));

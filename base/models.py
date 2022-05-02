@@ -43,7 +43,7 @@ class Inventory(models.Model):
 class InventoryPayments(models.Model):
     """Su propósito es registrar cada cobro de un item."""
     item = models.ForeignKey(Inventory, on_delete=models.SET_NULL, null=True)
-    quantity = models.FloatField()
+    #quantity = models.FloatField()
     date = models.DateTimeField(auto_now_add=True)
     collected_by = models.ForeignKey(
         Staff, on_delete=models.SET_NULL, null=True)
@@ -67,8 +67,10 @@ class Client(models.Model):
         Staff, on_delete=models.SET_NULL, null=True)
     inscription = models.DateTimeField(auto_now_add=True)
     fee = models.FloatField()
-    paid_unitl = models.DateTimeField(auto_now=True)
-    pay_in = models.DateTimeField(auto_now=True)
+    paid_until = models.DateTimeField(auto_now=True)
+    #pay_in = models.DateTimeField(auto_now=True)
+    # NOTE elimine pay_in ya que me pareció poco
+    # útil, decidi hacer el cálculo en 'stats' 
     advice = models.TextField(default='')
     is_active = models.BooleanField(default=True)
     charges = models.FloatField(default=0)
@@ -83,7 +85,6 @@ class ClientPayments(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     collected_by = models.ForeignKey(
         Staff, on_delete=models.SET_NULL, null=True)
-    membership_time = models.IntegerField()
     total = models.FloatField()
 
     def __str__(self):

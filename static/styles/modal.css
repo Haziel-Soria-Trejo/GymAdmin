@@ -1,0 +1,63 @@
+.modal {
+  width: 100%;
+  height: 100%;
+  display: flex;/*Es su propiedad cuando se llama*/
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: none;/*De entrada no debe de aparecer*/
+}
+.modal-container {
+  width: 500px;
+  height: 500px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 15px;
+  padding:5px;
+}
+.modal-container header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #1b1717;
+  color:#fff;
+  border-radius: 15px;
+  padding:10px
+}
+#modal-close {
+  background-color: #bd1616;
+  border-style: none;
+  border-radius: 8px;
+}
+#modal-form{
+  margin:15px;
+  display:flex;
+  flex-direction:column;
+  font-size: 1.3rem;
+}
+#modal-form p{
+  margin-bottom: 10px;
+}
+
+#modal-form input{
+  margin-bottom:10px;
+  width:50%;
+  height:25px;
+  font-size: inherit;
+}
+#modal-form select{
+  width: 50%;
+}
+textarea{
+  resize:none;
+  font-family: sans-serif;
+}
+#modal-form div{
+  margin-top:10%;
+  display:flex;
+  justify-content:center;
+}
+

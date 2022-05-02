@@ -1,0 +1,17 @@
+{% load static %}
+<div class="modal">
+  <div class="modal-container">
+    <header>
+      <h3>Ventana modal</h3>
+      <button id="modal-close">cerrar</button>
+    </header>
+    {% csrf_token %}
+    <form action="" id="modal-form">
+
+    </form>
+  </div>
+</div>
+<!--En vista de la dificultad de realizar programación 
+  modular decidí hacerlo de esta forma-->
+<script src="{% static 'js/modal_actions.js' %}"></script>
+<script src="{% static 'js/modal.js' %}"  ></script>

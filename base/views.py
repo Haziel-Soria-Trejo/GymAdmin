@@ -5,11 +5,11 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import JsonResponse
 # Mi código
 from .models import Staff,Task
 from stats.models import Activity, Dispatches
 from .utils.notice import notice
+from .utils.get_staff_to import decode_str
 # Me parecio más fácil importarlo que
 # hacer sus propias views (tal vez como API).
 
@@ -64,7 +64,9 @@ def register(req):
         Se ha hecho una soliditud de empleo por parte de {username}
         para el cargo de {rank}.
         """
-        notice(msg,'registro',['CEO','segundo al mando'],'registro') 
+        notice(
+            msg,'registro',['CEO','segundo al mando'],
+            subject='registro',username=username,password=password,rank=rank) 
 
         return redirect('login-page')       
         
@@ -87,7 +89,7 @@ def staff_page(req):
 
     tasks = Task.objects.all()
     dispatches = Dispatches.objects.all()
-
+    
     context = {'title': 'Perfil', 'staff': users,
-    'activity':activity, 'tasks':tasks, 'dispatches':dispatches}
+    'activity':activity, 'tasks':tasks, 'dispatches':dispatches,}
     return render(req, 'base/staff.html', context)

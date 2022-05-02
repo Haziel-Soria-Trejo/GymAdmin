@@ -39,18 +39,22 @@
         {% endfor %}
     </article>
     <footer class="profile-content dispatches">
-        <h2>Comunicados</h2>
+        <div class="add_title">
+           <h2>Comunicados</h2>
+        <button id="add_disp">+</button> 
+        </div>
+        
         {% for disp in dispatches %}
-        {% if disp.staff_to == request.user.username or disp.staff_to == request.user.rank %}
+        {% if request.user.username in disp.staff_to or request.user.rank in disp.staff_to  %}
 
         <section class="card disp">
-                <div>
+                <div >
                   <p>{{disp.text}}</p>
                 <small>desde {{disp.staff_from}} para {{disp.staff_to}}</small> 
                 <br> 
                 <small>Fecha:</small><small class="date">{{disp.date}}</small>     
                 </div>
-                <div>
+                <div id="disp_{{disp.id}}">
                     <button class="like">
                         <img src="{% static 'icons/hand-thumbs-up.svg' %}" alt="">
                     </button>
