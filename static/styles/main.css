@@ -19,7 +19,9 @@ body {
   text-align: center;
   color: #fff;
 }
-
+button{
+  border-style: none;
+}
 /*menu*/
 .menu {
   position: sticky;
@@ -107,11 +109,20 @@ body {
   font-size:90px;
   
 }
+.task-handler{
+  display:flex;
+}
 .task {
   margin: 50px;
+  padding:10px;
   width: 80%;
-  height: 50px;
+  height: fit-content;
   border-radius: 50px;
+  display:grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-template-rows: max-content;
+  justify-items: center;
+  align-items: center;
 }
 .task-list{
   padding:50px;

@@ -5,12 +5,19 @@
         <button id="task-plus" class="display-modal">+</button>
     </header>
     <section class="task-list">
-        <div class="task importance-1">
-            tarea
-            <span><img src="{% static 'icons/exclamation-diamond-fill.svg' %}"></span>
+        {% for task in tasks %}
+        <div class="task-handler" id="hd_{{task.id}}">
+            <div class="task importance-{{task.importance}}">
+                <p>{{task.name}}</p>
+                <p>{{task.description}}</p>
+                <small>{{task.assigned_by.username}} -- {{task.assigned_to.username}}</small>
+                <small>{{task.duration}}</small>
+            </div>
+            <label for="">¿Completada? </label>
+            <input type="checkbox" id="ts_{{task.id}}" class="display-modal is_compl">
         </div>
-        <div class="task importance-2">tarea</div>
-        <div class="task importance-3">tarea</div>
-    </section>
-    
+            
+            
+        {% endfor %}
+    </section> 
 </section>

@@ -1,0 +1,93 @@
+{% extends 'main.html' %} {% load static %} 
+{% block content %} 
+<link rel="stylesheet" href="{% static 'styles/inventory.css' %}">
+{% include 'menu.html' %}
+
+<h1>Manejo del inventario</h1>
+<header>
+    <form method="GET" action="{% url 'inventory' %}" class="search">
+      <label for="">Buscar grupos o items</label>
+      <input type="search" id="search-bar" name="q" />
+    </form>
+    <div class="add">
+      <button class="display-modal" id="item-add" >
+        <img src="{% static 'icons/plus-circle-fill.svg' %}" alt=""> Añadir producto
+    </button>
+    <button class="display-modal" id="cluster-add">
+        <img src="{% static 'icons/plus-circle-fill.svg' %}" alt=""> Añadir grupo
+    </button>  
+    </div>
+    
+</header>
+<main>
+  <section>
+    <table>
+        <thead>
+           <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Grupo</th>
+        <th>Fecha de registro</th>
+        <th>Registrado por</th>
+        <th>Acciones</th>
+      </tr> 
+        </thead>
+      <tbody>
+         {% for item in items %}
+      <tr id="it_{{item.id}}">
+        <td>{{item.id}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.cluster}}</td>
+        <td>{{item.date_register|date:"d/m/Y"}}</td>
+        <td>{{item.register_by}}</td>
+        <td><div class="actions">
+            <button class="display-modal" onclick="updateItem('{{item.id}}')">
+                <img src="{% static 'icons/save-fill.svg' %}" alt="">
+            </button>
+            <button class="display-modal" onclick="delItem('{{item.id}}')">
+                <img src="{% static 'icons/trash-fill.svg' %}" alt="">
+            </button>
+        </div></td>
+      </tr>
+      {% endfor %} 
+      </tbody>
+      
+    </table>
+  </section>
+  <section>
+    <table>
+        <thead>
+          <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Acciones</th>
+      </tr>  
+        </thead>
+      <tbody>
+         {% for cluster in clusters %}
+      <tr id="cl_{{cluster.id}}">
+        <td>{{cluster.id}}</td>
+        <td>{{cluster.name}}</td>
+        <td>
+            <div class="actions">
+                <button class="display-modal" onclick="updateGroup('{{cluster.id}}')">
+                    <img src="{% static 'icons/save-fill.svg' %}" alt="">
+                </button>
+                <button class="display-modal " onclick="delGroup('{{cluster.id}}')">
+                    <img src="{% static 'icons/trash-fill.svg' %}" alt="">
+                </button>
+            </div>
+        </td>
+      </tr>
+      {% endfor %} 
+      </tbody>
+      
+    </table>
+  </section>
+</main>
+{% include 'modal.html' %}
+<script src="{% static 'js/modal_actions.js' %}"></script>
+<script src="{% static 'js/modal.js' %}"></script>
+{% endblock content %}

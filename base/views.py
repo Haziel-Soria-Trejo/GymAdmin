@@ -5,8 +5,9 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db.models import Q
 # Mi código
-from .models import Staff,Task
+from .models import Cluster, Inventory, Staff,Task, Client
 from stats.models import Activity, Dispatches
 from .utils.notice import notice
 from .utils.get_staff_to import decode_str
@@ -18,7 +19,8 @@ from .utils.get_staff_to import decode_str
 
 @login_required(login_url='login-page')
 def home(req):
-    context = {'title': 'home'}
+    tasks = Task.objects.all()
+    context = {'title': 'home','tasks':tasks}
     return render(req, 'base/home.html', context)
 
 
@@ -93,3 +95,25 @@ def staff_page(req):
     context = {'title': 'Perfil', 'staff': users,
     'activity':activity, 'tasks':tasks, 'dispatches':dispatches,}
     return render(req, 'base/staff.html', context)
+
+@login_required(login_url='login-page')
+def clients(req):
+    q = req.GET.get('q') if req.GET.get('q') != None else ''
+    
+    clients = Client.objects.filter(Q(name__icontains=q))
+
+    context = {'title':'Clientes', 'clients':clients}
+    return render(req,'base/clients.html',context)
+
+@login_required(login_url='login-page')
+def invetory(req):
+    q = req.GET.get('q') if req.GET.get('q') != None else ''
+    
+    items = Inventory.objects.filter(
+        Q(name__icontains=q ) | Q(cluster__name__icontains=q))
+    clusters = Cluster.objects.filter(
+        Q(name__icontains=q)
+    )
+
+    context = {'title':'Inventario', 'items':items,'clusters':clusters}
+    return render(req,'base/inventory.html',context)

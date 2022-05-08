@@ -4,13 +4,11 @@ import json
 from django.http import JsonResponse
 # Mi código.
 from .utils.delete_disp import approve, disapprove
-from base.models import Staff
-from .utils.setModel import setClient, setClientPay, \
-    setClientPay, setTask, setItemSell
+from base.models import Staff,Client,Cluster
+from .utils.modelActions import Actions
 # Create your views here.
 
 # TODO: Cambiar el nombre de esta vista.
-
 
 def v1(req):
     body = json.loads(req.body.decode())
@@ -41,33 +39,19 @@ def getStaff(req):
 
     return JsonResponse({'status': 'ok', 'code': 200, 'users': allowed_users})
 
+def getCluster(req):
+    clusters = Cluster.objects.values_list('name')
+    cslist = [i[0] for i in clusters]
+    return JsonResponse({'staud':'ok','code':202,'clusters':cslist})
 
 def setData(req):
     body = json.loads(req.body.decode())
-    subject = body['subject']
     by = Staff.objects.get(username=req.user.username)
     res = None
+    setActions  = Actions(body,by,Staff.objects.get)
 
-    if subject == 'setClient':
-        setClient(
-            body['name'], body['membership'],
-            by, body['fee'], body['advice'],body['paid_until'])
-
-    elif subject == 'setClientPay':
-        res = setClientPay(body['name'], body['id'],
-                     float(body['total']), by, 
-                    )
-
-    elif subject == 'setTask':
-        setTask(body['name'], body['descr'],
-                by, Staff.objects.get(username=body['to']),
-                body['duration'], int(body['importance']))
-
-    elif subject == 'setItemSell':
-        res = setItemSell(body['name'], body['id'],
-                          by, body['total'])
+    res = setActions.switchSubject()
 
     if res == 'duplicates':
-        return JsonResponse({'status': 'error', 'code': 204,'message':'Es necesario ingresar el ID del usuario.'})
-
-    return JsonResponse({'status': 'ok', 'code': 404,'message':'Ha ocurrido un error.'})
+        return JsonResponse({'status': 'error', 'code': 204, 'message': 'Es necesario ingresar el ID del usuario.'})
+    return JsonResponse({'status': 'ok'})

@@ -2,11 +2,14 @@ const $ = document;
 const modal = $.getElementsByClassName("modal")[0];
 const close = $.getElementById("modal-close");
 const modalForm = $.getElementById("modal-form");
-const submitButtonText = `
-<div>
-<input type="button" value="Ingresar" id="modal-form-sumbit">
+const submitButtonText = (val)=>{
+  return `
+<div ">
+<input type="button" value="${val}" id="modal-form-sumbit" 
+  style="height:fit-content;width:fit-content;">
 </div>
-`;
+`
+;}
 let state = "";
 
 function getCookie(name) {
@@ -49,17 +52,14 @@ async function quick_pay() {
     <label for="in-id">ID:</label>
     <input type="number" id="in-id" class="in">
     
-    <label for="in-fee">Cuota:</label>
+    <label for="in-fee">Total:</label>
     <input type="number" value="320" id='in-fee' class="in">
     
-    <label for="in-fee-numb">Número de pagos:</label>
-    <input type="number" value="1" id="in-fee-numb" class="in">
     
-    ${submitButtonText}
+    ${submitButtonText('Pagar')}
     <p>
     <small>
-    En caso de no pagar la cuota completa anotar <b>0 pagos</b> y solamente
-    escribir la cantidad pagada de momento.
+    Anotar cuanto se pagó. Si excede o falta se registrará automaticamente.
     </small>
     </p>
     `;
@@ -87,7 +87,7 @@ function quick_register() {
      placeholder="Escriba sus recomendaciones para el nuevo usuario.">
     </textarea>
 
-    ${submitButtonText}
+    ${submitButtonText('Registrar')}
     `;
 }
 function quick_pay_product() {
@@ -102,7 +102,7 @@ function quick_pay_product() {
     <label for="in-fee">Total:</label>
     <input type="number" value="" id='in-fee' class="in">
 
-    ${submitButtonText}
+    ${submitButtonText('pagar')}
     `;
 }
 async function task_plus() {
@@ -129,6 +129,89 @@ async function task_plus() {
   
   <label for="in-descr">Breve descripción:</label>
   <textarea name="" id="" cols="30" rows="5" id="in-descr" class="in"> </textarea>
-    ${submitButtonText}
+    ${submitButtonText('Añadir')}
     `;
+}
+function task_compl(){
+  modalForm.innerHTML = `
+  ${submitButtonText('¿Seguro que ya completaste tu deber? 🤔')}
+  `
+}
+
+/* Usadas en la vista del inventario */
+async function ModalAddItem(){
+  let clusters = ''
+  await ajax(`getcluster`,json=>{
+    json.clusters.forEach(cl=>{
+      clusters = clusters + `<option>${cl}</option>`
+    })
+  })
+  modalForm.innerHTML = `
+  <label>Nombre:</label>
+  <input type="text" class="in"/>
+
+  <label for="">Grupo:</label>
+  <select name="" id="" class="in">
+    ${clusters}
+  </select>
+
+  <label for="">Precio:</label>
+  <input type="number" class="in" value="0"> 
+  ${submitButtonText("Agregar")}
+  `
+}
+function ModalAddGroup(){
+  modalForm.innerHTML = `
+  <label>Nombre </label>
+  <input type="text" class="in" />
+  ${submitButtonText("Agregar")}
+  `
+}
+async function ModalUpdateItem(id){
+  let clusters = ''
+  await ajax(`getcluster`,json=>{
+    json.clusters.forEach(cl=>{
+      clusters = clusters + `<option>${cl}</option>`
+    })
+  })
+
+  modalForm.innerHTML = `
+  <input type="number" class="in" style="visibility:hidden" value="${id}"/>
+  <hr />
+  <label for="">Nombre:</label>
+  <input type="text" class="in"/>
+
+  <label for="">Grupo:</label>
+  <select name="" id="" class="in">
+    ${clusters}
+  </select>
+
+  <label for="">Precio:</label>
+  <input type="number" class="in"/>
+
+  ${submitButtonText("Modificar")}
+  `
+}
+function ModalDelItem(id){
+  modalForm.innerHTML = `
+  <input type="number" value="${id}" class='in' style="visibility:hidden">
+  ${submitButtonText("¿Está seguro de que desea eliminarlo?")}
+  `
+}
+function ModalUpdateGroup(id){
+  
+  modalForm.innerHTML = `
+    <input type="number" class="in" style="visibility:hidden" value="${id}"/>
+    <hr />
+    <label for="">Nombre:</label>
+    <input type="text" name="" id="" class="in">
+
+    ${submitButtonText("Modificar")}
+  `
+}
+function ModalDelGroup(id){
+  modalForm.innerHTML = `
+    <input type="number" class="in" style="visibility:hidden" value="${id}"/>
+    ${submitButtonText("¿Está seguro de que desea eliminarlo?")}
+  `
 }

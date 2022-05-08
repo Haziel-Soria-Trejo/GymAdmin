@@ -1,0 +1,42 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'styles/clients.css' %}" />
+{% include 'menu.html' %}
+<div class="search-clt">
+  <form method="GET" action="{% url 'clients' %}">
+    <label for="">Buscar clientes</label>
+    <input type="search" id="search-bar" name="q" />
+  </form>
+</div>
+<main>
+  <table id="table_id">
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Membresía</th>
+      <th>Cuota</th>
+      <th>Fecha de pago</th>
+      <th>Cargos</th>
+      <th>Recomendaciones</th>
+      <th>Incrito por</th>
+      <th>Fecha de incripción</th>
+      <th>Activo</th>
+    </tr>
+    {% for clt in clients %}
+    <tr>
+      <td>{{clt.id}}</td>
+      <td>{{clt.name}}</td>
+      <td>
+        {% if clt.membership == 'week' %} Semanal {% else %} Mensual {% endif %}
+      </td>
+      <td>{{clt.fee}}</td>
+      <td>{{clt.paid_until|date:"d/m/Y"}}</td>
+      <td>{{clt.charges}}</td>
+      <td>{{clt.advice}}</td>
+      <td>{{clt.register_by}}</td>
+      <td>{{clt.inscription|date:"d/m/Y"}}</td>
+      <td>activo</td>
+    </tr>
+    {% endfor %}
+  </table>
+</main>
+{% endblock content %}

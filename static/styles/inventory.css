@@ -1,0 +1,60 @@
+h1{
+    margin:50px;
+    text-align: center;
+    font-size: 2rem;
+    color: #FFF;
+}
+main, header{
+  display: flex;
+    justify-content:space-around;
+    margin: 10px;
+    margin-top: 0;
+    padding: 5px;
+    background-color: #fff;
+}
+header{
+  align-items:center;
+  flex-wrap:wrap;
+}
+#search-bar{
+  height:30px;
+  border-radius:30px;
+  font-size:1.4rem;
+}
+
+.add{
+  display:flex;
+  
+}
+.add button{
+    margin:10px;
+    border-radius:10px;
+    background-color:  #27c93f;
+    display: flex;
+    align-items: center;
+    width: 220px;
+    height: 30px;
+}
+.add button>*{
+  margin-right:auto;
+}
+.actions button{
+    padding: 5px;
+}
+.actions button>*{
+    display: flex;
+}
+.actions button:nth-child(odd){
+   background-color:  #27c93f;
+}
+.actions button:nth-child(even){
+    background-color: #ff5f56;
+}
+
+table{
+    border-collapse:collapse;
+}
+th,td{
+    border:1px solid  #000;
+    padding:10px;
+}

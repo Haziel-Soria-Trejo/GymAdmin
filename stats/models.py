@@ -7,7 +7,7 @@ from django.utils import timezone
 # NO se han hecho las migraciones 
 class Activity(models.Model):
     name = models.CharField(max_length=200)
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(auto_now_add=True)
     amount = models.FloatField(default=0)
     # NOTE: Se pudo haber hecho importando Staff (tal vez)
     # pero lo considere más facil así.

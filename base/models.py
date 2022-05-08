@@ -22,7 +22,7 @@ class Staff(AbstractUser):
 
 class Cluster(models.Model):
     """Agrupar en inventario en grupos."""
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200,unique=True)
 
     def __str__(self):
         return self.name
@@ -67,7 +67,7 @@ class Client(models.Model):
         Staff, on_delete=models.SET_NULL, null=True)
     inscription = models.DateTimeField(auto_now_add=True)
     fee = models.FloatField()
-    paid_until = models.DateTimeField(auto_now=True)
+    paid_until = models.DateTimeField(auto_now_add=True)
     #pay_in = models.DateTimeField(auto_now=True)
     # NOTE elimine pay_in ya que me pareció poco
     # útil, decidi hacer el cálculo en 'stats' 

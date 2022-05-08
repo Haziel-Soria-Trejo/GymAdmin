@@ -5,12 +5,12 @@
   <ul class="menu-bar">
     <li><a href="{% url 'home' %}">Home</a></li>
     <li>
-     <a href="#">Clientes</a>
+     <a href="{% url 'clients' %}">Clientes</a>
     </li>
     <li>
     <a href="#">Estadística</a>
     </li>
-    <li><a href="#">Inventario</a></li>
+    <li><a href="{% url 'inventory' %}">Inventario</a></li>
     {% if request.user.rank == 'CEO' or request.user.rank == 'segundo al mando' %}
     <li>
       <a href="{% url 'staff'%}">Personal</a>
