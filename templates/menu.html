@@ -8,7 +8,7 @@
      <a href="{% url 'clients' %}">Clientes</a>
     </li>
     <li>
-    <a href="#">Estadística</a>
+    <a href="{% url 'stats' %}">Estadística</a>
     </li>
     <li><a href="{% url 'inventory' %}">Inventario</a></li>
     {% if request.user.rank == 'CEO' or request.user.rank == 'segundo al mando' %}
@@ -16,9 +16,8 @@
       <a href="{% url 'staff'%}">Personal</a>
     </li>
     {% endif %}
-    <li><a href="#">Ajustes</a></li>
   </ul>
   <a href="{% url 'logout' %}" id="logout_a">Salir</a>
-   <a href="#"><img src="{% static 'icons/person.svg' %}" alt="user" /> </a> 
+   <a href="{% url 'settings' %}"><img src="{% static 'icons/person.svg' %}" alt="user" /> </a> 
   
 </div>

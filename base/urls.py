@@ -10,5 +10,6 @@ urlpatterns = [
     path('logout',views.logout_staff,name='logout'),
     path('personal',views.staff_page,name='staff'),
     path('clientes',views.clients,name='clients'),
-    path('inventario',views.invetory,name='inventory')
+    path('inventario',views.invetory,name='inventory'),
+    path('settings',views.settings,name='settings')
 ]

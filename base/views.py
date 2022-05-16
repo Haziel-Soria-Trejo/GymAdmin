@@ -10,7 +10,7 @@ from django.db.models import Q
 from .models import Cluster, Inventory, Staff,Task, Client
 from stats.models import Activity, Dispatches
 from .utils.notice import notice
-from .utils.get_staff_to import decode_str
+from .utils.settingCase import CASE
 # Me parecio más fácil importarlo que
 # hacer sus propias views (tal vez como API).
 
@@ -117,3 +117,12 @@ def invetory(req):
 
     context = {'title':'Inventario', 'items':items,'clusters':clusters}
     return render(req,'base/inventory.html',context)
+
+@login_required(login_url='login-page')
+def settings(req):
+    staff = Staff.objects.all()
+    context = {'title':'Ajustes','staff':staff}
+    #construcción del formato POST
+    post = req.POST
+    CASE(post,Staff,user=req.user.username)
+    return render(req,'base/settings.html',context)

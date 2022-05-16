@@ -16,6 +16,9 @@ class Activity(models.Model):
     # que apunte a Staff.
     done_by = models.CharField(max_length=200)
 
+    class Meta:
+        ordering = ('date',)
+
 class Dispatches(models.Model):
     text = models.TextField(default='')
     date = models.DateTimeField(auto_now_add=True)

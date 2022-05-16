@@ -1,0 +1,81 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'styles/settings.css' %}">
+{% include 'menu.html' %}
+<h1>Bienvenido a las congifuraciones.</h1>
+
+<section id="settings-section">
+    <p>Su contraseña es requerida para cualquier acción.</p>
+    <div class="changeFormDiv">
+        <label for="">Contraseña</label>
+        <input type="password" name="" id="psw-id">
+    </div>
+    <div class="changeFormDiv">
+    <h2>Cambiar contraseña</h2>
+        <form method="POST" id="form-change-psw">
+            {% csrf_token %}
+            <div class="data-container">
+                <label for="">Nueva contraseña</label>
+                <input type="password" name="psw1" id="psw1">
+            </div>
+
+            <div class="data-container">
+                <label for="">Repita su nueva contraseña</label>
+                <input type="password" name="psw2"id="psw2">
+            </div>
+
+            <input type="submit" name="change-psw" class="changeStaff" value="Cambiar"  id="change-psw">
+        </form>
+    </div>
+    <div class="changeFormDiv">
+        {% if request.user.rank == 'CEO' %}
+        <h2>Cambiar de rango</h2>
+    <p><small>Implica dejar el mando general a otra persona.</small></p>
+    <form action="" method="post" id="form-change-ceo">
+        {% csrf_token %}
+        <div class="data-container">
+            <label for="">Elegir empleado</label>
+            <select name="select-staff" id="">
+                {% for usr in staff %}
+                    <option value="{{usr.username}}">{{usr.username}}</option>
+                {%  endfor %}
+            </select>
+        </div>
+        <input type="submit" name="change-ceo" class="changeStaff" value="Cambiar"  id="change-ceo">
+    </form>
+
+    {% else %}
+    <h2>Solicitar cambio de rango</h2>
+    <form action="" method="post" id="form-change-rank">
+        {% csrf_token %}
+        <div class="data-container">
+          <label for="">Rango al que desea cambiar </label>
+        <select name="" id="">
+            <option value="segundo al mando">Segundo al mando</option>
+            <option value="nivel_1">Nivel 1</option>
+            <option value="nivel_2">Nivel 2</option>
+            <option value="CEO">Jefe</option>
+        </select>  
+        </div>
+        
+        <input type="submit" name="change-rank" class="changeStaff" value="Cambiar"  id="change-rank">
+    </form>
+    {% endif %}
+    </div>
+    
+    <div class="changeFormDiv">
+        <h2>Eliminar cuenta</h2>
+        <form method="post" id="form-del-staff">
+            {% csrf_token %}
+            {% if request.user.rank == 'CEO' %}
+            <p>EL CEO no puede eliminar su cuenta.</p>
+            {% else %}
+            <p>Si elimina su cuenta toda su información se eliminará.</p>
+            <input type="submit" name="del-staff" id="del-staff"  class="changeStaff" value="Eliminar">
+            {% endif %}
+        </form>
+    </div>
+</section>
+<script src="{% static 'js/settings.js' %}" type="module"></script>
+{% endblock content %}

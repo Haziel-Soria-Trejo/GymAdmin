@@ -41,7 +41,7 @@ async function ajax(loc, cbSuccess, method = "GET", body = undefined) {
       alert("Se ha prducido un error en el servidor.");
       console.log(err);
     });
-}
+  }
 
 async function quick_pay() {
   modalForm.innerHTML = `

@@ -1,0 +1,59 @@
+:root{
+    --chart-color:rgb(255, 99, 132);
+}
+h1{
+    text-align:center;
+    color:#fff; 
+    margin:15px;
+}
+hr{
+    margin:10px
+}
+#filter{
+    background-color: #fff;
+    width:90vw;
+    margin:auto;
+    padding:40px;
+    border-radius:20px;
+}
+#excel{
+    background-color: #27c981;
+    color:#fff;
+    padding:15px;
+    font-size:x-large;
+    display:flex;
+    align-items:center;
+}
+#excel img{
+    height:3rem;
+}
+h2{
+    text-align:center;
+}
+.filter-container{
+    display:flex;
+    justify-content:space-evenly;
+    flex-wrap:wrap;
+    align-items:center;    
+}
+.filter-container >*{
+    margin:10px;
+}
+#submit-filter{
+    padding:20px;
+    background-color:#fff;
+    width:150px;
+    color:var(--chart-color);
+    border: solid;
+    border-radius:30px;
+    font-size:large;
+}
+#chart-section{
+    width:90vw;
+    margin:auto;
+    margin-top:75px;
+    margin-bottom:20px;
+    padding:20px;
+    background-color: #fff;
+    border-radius:20px;
+}

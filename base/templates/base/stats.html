@@ -1,0 +1,86 @@
+{% extends 'main.html' %} {% load static %} {% block content %} 
+{% include 'menu.html' %}
+<link rel="stylesheet" href="{% static 'styles/stats.css' %}" />
+<h1>Estadísticas</h1>
+
+<section id="filter">
+  <div class="filter-container">
+    <button id="excel">
+      <img src="{% static 'icons/file-earmark-bar-graph.svg' %}" alt="" />
+      <p>Descargar hoja contable</p>
+    </button>
+  </div>
+  <hr />
+  <h2>Filtros de búsqueda.</h2>
+  <form action="">
+    <div class="filter-container">
+      <div>
+        <label for="">Actividad por empleado</label>
+        <select name="" id="filter-staff">
+          <option disabled selected value> -- Eliga una opción -- </option>
+          {% for name in names %}
+            <option>{{name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label for="">Tipo de acción</label>
+        <select name="" id="filter-type" >
+          <option disabled selected value> -- Eliga una opción -- </option>
+          {% for act in acts %}
+            <option>
+              {{act}}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label for="">Desde</label>
+        <input type="date" id="filter-timemin" >
+      </div>
+
+      <div>
+        <label for="">Hasta</label>
+        <input type="date" id="filter-timemax" >
+      </div>
+
+      <div>
+        <label for="">Espacios temporales</label>
+        <select name="" id="filter-time">
+          <option value="hr">Hora</option>
+          <option value="dy" selected>Diario</option>
+          <option value="wk">Semanal</option>
+          <option value="mn">Mensual</option>
+          <option value="yr">Anual</option>
+        </select>
+      </div>
+
+      <!--<div>
+        <label for="">Cantidad</label>
+        <select name="" id="filter-select-amount"></select>
+      </div>-->
+    </div>
+
+    <hr />
+    <div class="filter-container">
+      <div>
+        <label for="">Gráficos rápidos</label>
+        <select name="" id="filter-chartType"></select>
+      </div>
+    </div>
+
+    <hr />
+    <div class="filter-container">
+      <input type="submit" name="" id="submit-filter" value="Crear gráfico"/>
+    </div>
+  </form>
+</section>
+
+<section id="chart-section">
+  <canvas id="myChart" style="width:90%;"></canvas>
+</section>
+<script src="{% static 'js/chart.min.js' %}"></script>
+<script src="{% static 'js/stats.js' %}" type="module"></script>
+{% endblock content %}
