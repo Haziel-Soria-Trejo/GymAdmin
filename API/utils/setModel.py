@@ -2,8 +2,8 @@
 from dateutil.relativedelta import relativedelta as rlv
 # Mi código.
 from base.models import Client, ClientPayments,\
-    Inventory, InventoryPayments, Task, Cluster
-from stats.models import Activity
+    Inventory, InventoryPayments, Staff, Task, Cluster
+from stats.models import Activity, Dispatches
 
 
 def createAct(name, amount, by):
@@ -28,9 +28,9 @@ def duplicates(name, id, model):
 # Funciones a exportar:
 
 
-def setClient(name, membership, by,  fee, advice,):
+def setClient(name, membership, by,  fee, incription,advice,):
     if membership == 'visit':
-        createAct('cobro de visita', fee, by.username)
+        createAct('Cobro de visita', fee, by.username)
         return
 
     client = Client(
@@ -41,7 +41,7 @@ def setClient(name, membership, by,  fee, advice,):
         advice=advice,
     )
     client.save()
-    createAct('Registro de cliente', fee, by.username)
+    createAct('Registro de cliente', incription, by.username)
 
 
 def setClientPay(name, id, total, by, ):
@@ -121,11 +121,9 @@ def addItem(name,by, cluster, price):
     item = Inventory(name=name, register_by = by, cluster=cluster, price=price)
     item.save()
 
-
 def addGroup(name):
     cluster = Cluster(name=name)
     cluster.save()
-
 
 def updateItem(id, name, cluster, price, delete):
     item = Inventory.objects.get(id=int(id))
@@ -150,3 +148,8 @@ def updateGroup(id, name, delete):
     cluster.name = name
 
     cluster.save()
+
+def upgradeStaff(name,rank):
+    user = Staff.objects.get(username = name)
+    user.rank = rank
+    user.save()

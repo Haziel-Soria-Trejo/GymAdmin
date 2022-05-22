@@ -34,9 +34,12 @@
       <td>{{clt.advice}}</td>
       <td>{{clt.register_by}}</td>
       <td>{{clt.inscription|date:"d/m/Y"}}</td>
-      <td>activo</td>
+      <td>
+        <input  class ="is_active" id="active{{clt.id}}" type="checkbox" {% if clt.is_active %} checked {% endif %}>
+      </td>
     </tr>
     {% endfor %}
   </table>
 </main>
+<script src="{% static 'js/clients.js' %}" type="module"></script>
 {% endblock content %}

@@ -24,38 +24,54 @@ function switch_id(id) {
       state = "group-add";
       ModalAddGroup();
       break;
+    case "upgradeStaff":
+      state = "upgradeStaff";
+      upgradeStaff();
+      break;
+    case "add_disp":
+      state = "add_disp";
+      add_disp();
+      break;
     default:
       break;
   }
 }
+const customAjax = async (body) => {
+  ajax(
+    "setdata",
+    (e) => {
+      e.message ? alert(e.message) : null;
+    },
+    "POST",
+    body
+  );
+};
 async function switch_data(data) {
   switch (state) {
     case "pay":
-      await ajax(
-        "setdata",
-        (e) => {
-          e.message ? alert(e.message) : null;
-        },
-        "POST",
-        {
-          subject: "setClientPay",
-          name: data[0],
-          id: data[1],
-          total: data[2],
-        }
-      );
+      await customAjax({
+        subject: "setClientPay",
+        name: data[0],
+        id: data[1],
+        total: data[2],
+      });
       break;
     case "register":
-      await ajax("setdata", (e) => {}, "POST", {
+      if(data[0]===''){
+        alert('El nombre no puede ser nulo.')
+        return
+      }
+      await customAjax({
         subject: "setClient",
         name: data[0],
         membership: data[1],
         fee: data[2],
+        inscription :data[3],
         advice: data[4],
       });
       break;
     case "pay-product":
-      await ajax("setdata", (e) => {}, "POST", {
+      await customAjax({
         subject: "setItemSell",
         name: data[0],
         id: data[1],
@@ -63,7 +79,7 @@ async function switch_data(data) {
       });
       break;
     case "task":
-      await ajax("setdata", (e) => {}, "POST", {
+      await customAjax({
         subject: "setTask",
         name: data[0],
         to: data[1].split(",")[0],
@@ -73,13 +89,15 @@ async function switch_data(data) {
       });
       break;
     case "deltask":
-      await ajax("setdata", (e) => {}, "POST", {
-        subject: "deleteTask",
-        id: data,
-      });
+      await customAjax(
+        await ajax("setdata", (e) => {}, "POST", {
+          subject: "deleteTask",
+          id: data,
+        })
+      );
       break;
     case "item-add":
-      await ajax("setdata", (e) => {}, "POST", {
+      await customAjax({
         subject: "addItem",
         name: data[0],
         clusterName: data[1],
@@ -87,13 +105,13 @@ async function switch_data(data) {
       });
       break;
     case "group-add":
-      await ajax("setdata", (e) => {}, "POST", {
+      await customAjax({
         subject: "addGroup",
         name: data[0],
       });
       break;
     case "update-item":
-      await ajax("setdata", (e) => {}, "POST", {
+      await customAjax({
         subject: "updateItem",
         action: "update",
         id: data[0],
@@ -103,14 +121,14 @@ async function switch_data(data) {
       });
       break;
     case "del-item":
-      await ajax("setdata", (e) => {}, "POST", {
+      await customAjax({
         subject: "updateItem",
         action: "delete",
         id: data,
       });
       break;
     case "update-group":
-      await ajax("setdata", (e) => {}, "POST", {
+      await customAjax({
         subject: "updateGroup",
         action: "update",
         id: data[0],
@@ -118,13 +136,24 @@ async function switch_data(data) {
       });
       break;
     case "del-group":
-      await ajax("setdata", (e) => {}, "POST", {
+      await customAjax({
         subject: "updateGroup",
         action: "delete",
         id: data,
       });
       break;
-
+    case "add_disp":
+      await customAjax({
+        subject: "addDisp",
+        text: data[0],
+        staff_to: data[1],
+      });
+    case "upgradeStaff":
+      await customAjax({
+        subject: "upgradeStaff",
+        staff: data[0],
+        rank: data[1],
+      });
     default:
       break;
   }
@@ -139,10 +168,10 @@ function submitModal() {
     switch_data(task_id);
     $.getElementById(`hd_${task_id}`).remove();
   } else if (state === "del-item") {
-    switch_data(item_id)
+    switch_data(item_id);
     $.getElementById(`it_${item_id}`).remove();
   } else if (state === "del-group") {
-    switch_data(cluster_id)
+    switch_data(cluster_id);
     $.getElementById(`cl_${cluster_id}`).remove();
   } else {
     getData();

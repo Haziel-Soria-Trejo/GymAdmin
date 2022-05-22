@@ -10,7 +10,9 @@
 <main>
     <article class="profile-content">
         <h2>Lista de empleados</h2>
-
+        <button class="display-modal" id="upgradeStaff">
+            Cambiar rangos
+        </button>
         {% for user in staff %}
         <section class="card user-card">            
                 <p>{{user.username}}</p>
@@ -42,26 +44,34 @@
     <footer class="profile-content dispatches">
         <div class="add_title">
            <h2>Comunicados</h2>
-        <button id="add_disp">+</button> 
+        <button id="add_disp" class="display-modal">+</button> 
         </div>
         
         {% for disp in dispatches %}
-        {% if request.user.username in disp.staff_to or request.user.rank in disp.staff_to  %}
+        {% if request.user.username in disp.staff_to or request.user.rank in disp.staff_to or disp.staff_to in 'todos' %}
 
         <section class="card disp">
                 <div >
                   <p>{{disp.text}}</p>
                 <small>desde {{disp.staff_from}} para {{disp.staff_to}}</small> 
                 <br> 
-                <small>Fecha:</small><small class="date">{{disp.date}}</small>     
+                <small>Fecha:</small><small class="date">{{disp.date | date:"d-m-Y"}}</small>     
                 </div>
                 <div id="disp_{{disp.id}}">
+                    {% if disp.subject == "registro" %}
                     <button class="like">
                         <img src="{% static 'icons/hand-thumbs-up.svg' %}" alt="">
                     </button>
                     <button class="dislike">
                         <img src="{% static 'icons/hand-thumbs-down.svg' %}" alt="">
                     </button>
+                    {% else %}
+
+
+                    <button  class="check">
+                        <img src="{% static 'icons/check-circle-fill.svg' %}" alt="">
+                    </button>
+                    {% endif %}
                 </div>   
         </section>
 
@@ -70,5 +80,9 @@
     </footer>
     
 </main>
-<script src="{% static 'js/likes.js' %}"></script>
+{% include 'modal.html' %}
+
+<script src="{% static 'js/modal_actions.js' %}" ></script>
+<script src="{% static 'js/modal.js' %}" ></script>
+<script src="{% static 'js/likes.js' %}" type="module"></script>
 {% endblock content %}

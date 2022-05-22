@@ -1,5 +1,6 @@
+from base.utils.notice import notice
 from .setModel import addGroup, addItem, deleteTask, setClient, setClientPay, \
-    setClientPay, setTask, setItemSell, updateGroup, updateItem
+    setClientPay, setTask, setItemSell, updateGroup, updateItem, upgradeStaff
 
 
 class Actions:
@@ -19,6 +20,8 @@ class Actions:
             'addGroup': self.addGroup,
             'updateItem': self.updateItem,
             'updateGroup': self.updateGroup,
+            'addDisp':self.addDisp,
+            'upgradeStaff':self.upgradeStaff
         }
 
     def switchSubject(self):
@@ -26,9 +29,8 @@ class Actions:
 
     def setClient(self):
         body = self.body
-
         setClient(body['name'], body['membership'],
-                  self.by, body['fee'], body['advice'])
+                  self.by, body['fee'], body['inscription'],body['advice'])
 
         return None
 
@@ -69,6 +71,17 @@ class Actions:
         addItem(body['name'], self.by, body['clusterName'], body['price'])
 
         return None
+
+    def addDisp(self):
+        body = self.body
+        notice(body['text'],self.by.username,[body['staff_to']],'comunicado')
+        #addDisp(body['text'],self.by.username,body['staff_to'])
+        
+        return None
+    
+    def upgradeStaff(self):
+        body = self.body
+        upgradeStaff(body['staff'],body['rank'])
 
     def addGroup(self):
         body = self.body

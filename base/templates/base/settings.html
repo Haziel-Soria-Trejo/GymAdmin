@@ -5,6 +5,12 @@
 {% include 'menu.html' %}
 <h1>Bienvenido a las congifuraciones.</h1>
 
+<section id="manual-section">
+    <a href="{% url 'manual' %}">
+        <img src="{% static 'icons/user-manual.svg' %}" alt="">
+        <h2>Manual de uso.</h2>
+    </a>
+</section>
 <section id="settings-section">
     <p>Su contraseña es requerida para cualquier acción.</p>
     <div class="changeFormDiv">

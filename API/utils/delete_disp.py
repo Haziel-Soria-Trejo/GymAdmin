@@ -3,7 +3,6 @@ from ..models import preUser
 from base.models import Staff
 
 def approve(disp_id):
-    print('hello')
     usr = preUser.objects.get(disp_id=disp_id)
     
     new_usr = Staff.objects.create(
@@ -20,5 +19,9 @@ def disapprove(disp_id):
 def delete(disp_id):
     usr = preUser.objects.get(disp_id=disp_id)
     usr.delete()
+    disp = Dispatches.objects.get(pk=disp_id)
+    disp.delete()
+
+def onlyDelete(disp_id):
     disp = Dispatches.objects.get(pk=disp_id)
     disp.delete()

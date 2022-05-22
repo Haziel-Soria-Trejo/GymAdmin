@@ -67,7 +67,7 @@ async function quick_pay() {
 function quick_register() {
   modalForm.innerHTML = `
     <label for="in-name">Nombre:</label>
-    <input type="text" id='in-name' class="in">
+    <input type="text" id='in-name' class="in" required>
 
     <label for="in-type">Tipo de cliente:</label>
     <select id="in-type" class="in">
@@ -137,7 +137,45 @@ function task_compl(){
   ${submitButtonText('¿Seguro que ya completaste tu deber? 🤔')}
   `
 }
-
+async function add_disp(){
+  let users = "";
+  await ajax("getstaff", (json) => {
+    json.users.forEach((usr) => {
+      users = users + `<option>${usr[0]}</option>`;
+    });
+  });
+  modalForm.innerHTML = `
+  <textarea name="" id="" cols="30" rows="10" class="in"></textarea>
+  <label for="">Personas a quienes desea comunicarlo.</label>
+  <p><small>No es posible enviar un mensaje únicamente para algún empleado con mayor rango.<small></p>
+  <select name="" id="" class="in">
+      <option value="todos">Todos</option>
+      ${users}
+  </select>
+    ${submitButtonText('Enviar mensaje')}
+  `
+}
+async function upgradeStaff(){
+  let users = "";
+  await ajax("getstaff", (json) => {
+    json.users.forEach((usr) => {
+      users = users + `<option>${usr[0]}</option>`;
+    });
+  });
+  modalForm.innerHTML = `
+  <label for="">Eliga el empleado:</label>
+  <select name="" id="" class="in">
+    ${users}
+  </select>
+  <label for="">Seleccione el rango a cambiar:</label>
+  <select name="" id="" class="in">
+      <option >segundo al mando</option>
+      <option >empleado nivel 1</option>
+      <option >empleado nivel 2</option>
+  </select>
+  ${submitButtonText('Cambiar rango')}
+  `
+}
 /* Usadas en la vista del inventario */
 async function ModalAddItem(){
   let clusters = ''

@@ -11,6 +11,9 @@ main{
     background-color: #EEEBDD;
     overflow-y: scroll;
 }
+#upgradeStaff{
+    background-color: rgb(205, 122, 50);
+}
 footer{
     grid-column-start:span 3;
     padding: 50px;
@@ -52,7 +55,7 @@ footer{
 .disp img{
     width: 40px;
 }
-.like{
+.like,.check{
     background-color: #27C93F;
 }
 .dislike{

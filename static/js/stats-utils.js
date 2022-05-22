@@ -62,7 +62,6 @@
           dataRanges.push([minDynamic, maxDynamic, amount]);
         }
       });
-      console.log(dataRanges);
       this.labels = dataRanges.map((e) => {
         return `${e[0].toLocaleString()}<--->${e[1].toLocaleString()}`;
       });
@@ -71,7 +70,6 @@
       });
     }
     createChart() {
-      console.log(this.labels,this.amounts)
       this.chart.destroy()
       
       this.chart = new Chart(this.chartElement, {
@@ -99,7 +97,7 @@ export function getFilters() {
     });
   
     const chartTime = document.getElementById("filter-time").value;
-    const chartFilter = document.getElementById("filter-chartType").value; //para los gráficos
+    const chartFilter = ''//document.getElementById("filter-chartType").value; //para los gráficos
   
     return { filters, chartFilter, chartTime }; //los valores predeterminados se harán en el backend.
   }

@@ -9,6 +9,7 @@ from django.db.models import Q
 # Mi código
 from .models import Cluster, Inventory, Staff,Task, Client
 from stats.models import Activity, Dispatches
+from stats.utils.updateClient import updateClient
 from .utils.notice import notice
 from .utils.settingCase import CASE
 # Me parecio más fácil importarlo que
@@ -23,6 +24,10 @@ def home(req):
     context = {'title': 'home','tasks':tasks}
     return render(req, 'base/home.html', context)
 
+def manual(req):
+    context = {}
+
+    return render(req,'base/manual.html',context)
 
 def login_page(req):
     post = req.POST
@@ -98,8 +103,9 @@ def staff_page(req):
 
 @login_required(login_url='login-page')
 def clients(req):
+    #primero actualizara todos los valores
+    updateClient()
     q = req.GET.get('q') if req.GET.get('q') != None else ''
-    
     clients = Client.objects.filter(Q(name__icontains=q))
 
     context = {'title':'Clientes', 'clients':clients}

@@ -8,6 +8,7 @@ urlpatterns = [
     path('getstaff',views.getStaff,name='getStaff'),
     path('getcluster',views.getCluster,name='getCluster'),
     path('setdata',views.setData, name='setData'),
+    path('active-client',views.changeClient,name='updateClient'),
     path('stats',views.stats),
     path('sheet',views.getSheet),
     path('verify-psw',views.verifyPsw,name='verifyPsw'),

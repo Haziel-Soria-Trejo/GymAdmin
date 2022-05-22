@@ -1,0 +1,11 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'styles/manual.css' %}">
+{% include 'menu.html' %}
+<section>
+    <img src="{% static 'icons/user-manual.svg' %}" alt="">
+    <h1>Bienvenido al manual de usuario</h1>
+    
+</section>
+{% endblock content %}

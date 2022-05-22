@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate
 from base.models import Staff, Client, Cluster
 from stats.models import Activity
 from stats.excel.sheet import create
-from .utils.delete_disp import approve, disapprove
+from .utils.delete_disp import approve, disapprove, onlyDelete
 from .utils.modelActions import Actions
 # Create your views here.
 
@@ -16,15 +16,29 @@ from .utils.modelActions import Actions
 
 def v1(req):
     body = json.loads(req.body.decode())
-    if req.user.rank in ('CEO', 'segundo al mando'):
+    try:
+        id = int(body['id'])
+        if body['btn'] == 'like':
+            approve(id)
+        elif body['btn'] == 'check':
+            onlyDelete(id)
+        else:
+            disapprove(id)
+    except:
+        return JsonResponse({'status': 'error', 'code': 404})
+
+    """if req.user.rank in ('CEO', 'segundo al mando'):
         try:
             id = int(body['id'])
             if body['btn'] == 'like':
                 approve(id)
+            elif body['btn'] == 'check':
+                print('hello')
+                onlyDelete(id)
             else:
                 disapprove(id)
         except:
-            return JsonResponse({'status': 'error', 'code': 404})
+            return JsonResponse({'status': 'error', 'code': 404})"""
 
     return JsonResponse({'status': 'ok', 'code': 204})
 
@@ -61,7 +75,6 @@ def setData(req):
     if res == 'duplicates':
         return JsonResponse({'status': 'error', 'code': 204, 'message': 'Es necesario ingresar el ID del usuario.'})
     return JsonResponse({'status': 'ok','code':200})
-
 
 def stats(req):
     """
@@ -107,3 +120,18 @@ def verifyPsw(req):
         return JsonResponse({'status': 'ok','code':200})
     else :
         return JsonResponse({'status': 'error','code':401})
+
+def changeClient(req):
+    try:
+        body = json.loads(req.body.decode())
+        ID = body['id']
+        clt = Client.objects.get(id=ID)
+        clt.is_active = (clt.is_active == False)
+        
+        clt.save()
+
+        return JsonResponse({'status': 'ok','code':200})
+        
+    except:
+        return JsonResponse({'status': 'error','code':404})
+
