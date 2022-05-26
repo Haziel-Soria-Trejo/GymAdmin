@@ -5,7 +5,7 @@ const modalForm = $.getElementById("modal-form");
 const submitButtonText = (val)=>{
   return `
 <div ">
-<input type="button" value="${val}" id="modal-form-sumbit" 
+<input type="button" value="${val}" id="modal-form-submit" 
   style="height:fit-content;width:fit-content;">
 </div>
 `
@@ -46,7 +46,7 @@ async function ajax(loc, cbSuccess, method = "GET", body = undefined) {
 async function quick_pay() {
   modalForm.innerHTML = `
     <p>Escriba el nombre <b>o</b> el ID del cliente. </p>
-    <label for="in-name">Nombre:</label>
+    <label for="in-name">Nombre completo (con apellidos):</label>
     <input type="text" id='in-name' class="in">
 
     <label for="in-id">ID:</label>
@@ -66,7 +66,7 @@ async function quick_pay() {
 }
 function quick_register() {
   modalForm.innerHTML = `
-    <label for="in-name">Nombre:</label>
+    <label for="in-name">Nombre completo (con apellidos):</label>
     <input type="text" id='in-name' class="in" required>
 
     <label for="in-type">Tipo de cliente:</label>

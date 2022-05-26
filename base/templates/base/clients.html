@@ -15,26 +15,26 @@
       <th>Membresía</th>
       <th>Cuota</th>
       <th>Fecha de pago</th>
-      <th>Cargos</th>
+      <!--<th>Cargos</th>-->
       <th>Recomendaciones</th>
       <th>Incrito por</th>
       <th>Fecha de incripción</th>
       <th>Activo</th>
     </tr>
     {% for clt in clients %}
-    <tr>
+    <tr class="client">
       <td>{{clt.id}}</td>
       <td>{{clt.name}}</td>
       <td>
         {% if clt.membership == 'week' %} Semanal {% else %} Mensual {% endif %}
       </td>
       <td>{{clt.fee}}</td>
-      <td>{{clt.paid_until|date:"d/m/Y"}}</td>
-      <td>{{clt.charges}}</td>
+      <td class="dateUntil">{{clt.paid_until|date:"d/m/Y"}}</td>
+      <!--<td>{{clt.charges}}</td>-->
       <td>{{clt.advice}}</td>
       <td>{{clt.register_by}}</td>
       <td>{{clt.inscription|date:"d/m/Y"}}</td>
-      <td>
+      <td >
         <input  class ="is_active" id="active{{clt.id}}" type="checkbox" {% if clt.is_active %} checked {% endif %}>
       </td>
     </tr>

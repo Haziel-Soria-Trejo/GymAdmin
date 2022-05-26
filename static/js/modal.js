@@ -182,12 +182,12 @@ seleccionada en una tabla*/
 let task_id = undefined;
 let item_id = undefined;
 let cluster_id = undefined;
-
 $.addEventListener("click", (e) => {
   if (e.target === close) {
     modal.style.display = "none";
   }
   if (e.target.closest(".display-modal")) {
+    submited = false
     modal.style.display = "flex";
 
     /* Los siguientes  if se usan en 
@@ -201,14 +201,14 @@ $.addEventListener("click", (e) => {
       switch_id(e.target.closest(".display-modal").id);
     }
   }
-  if (e.target.id === "modal-form-sumbit") {
+  if (e.target.id === "modal-form-submit") {
     submitModal();
     modal.style.display = "none";
   }
 });
 
 modalForm.addEventListener("keypress", (e) => {
-  if (e.key == "Enter") {
+  if (e.key == "Enter" && $.activeElement!=$.getElementById('modal-form-submit')) {
     submitModal();
     modal.style.display = "none";
   }

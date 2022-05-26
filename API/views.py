@@ -1,4 +1,5 @@
 # Built-in's
+from datetime import datetime
 import json
 # De django
 from django.http import JsonResponse
@@ -126,6 +127,8 @@ def changeClient(req):
         body = json.loads(req.body.decode())
         ID = body['id']
         clt = Client.objects.get(id=ID)
+        if clt.is_active == False:
+            clt.paid_until = datetime.now()
         clt.is_active = (clt.is_active == False)
         
         clt.save()

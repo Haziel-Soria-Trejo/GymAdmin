@@ -49,10 +49,15 @@ def setClientPay(name, id, total, by, ):
     client = duplicates(name, id, Client)
     if client == 'duplicates':
         return client
-
+    if client.is_active == False:
+        return
+        
     fee = client.fee
     charges = client.charges
 
+    # NOTE:
+    # Esta funcionalidad no fue utilizada totalmente pero es útil 
+    # para cobros fiados.
     if charges <= 0 and fee-total <= 0:  # no se ha pagado y no se adeuda.
         numb = (total - charges)//fee  # obtener el número de pagos hechos.
         rest = (total-charges) % fee
@@ -60,6 +65,7 @@ def setClientPay(name, id, total, by, ):
             client.paid_until = client.paid_until + rlv(months=numb)
         elif client.membership == 'week':
             client.paid_until = client.paid_until + rlv(weeks=numb)
+            client.is_active = False
         charges = -rest  # deuda negativa => el GYM le debe al cliente.
 
     elif charges > 0:
@@ -72,9 +78,8 @@ def setClientPay(name, id, total, by, ):
             elif client.membership == 'week':
                 client.paid_until = client.paid_until + rlv(weeks=numb)
             charges = -rest  # deuda negativa => el GYM le debe al cliente.
-
+                
     client.charges = charges
-    print(client.paid_until)
     client.save()
     pay = ClientPayments(
         # place=pay,
